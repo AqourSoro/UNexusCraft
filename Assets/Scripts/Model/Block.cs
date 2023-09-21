@@ -7,13 +7,15 @@ using Utils;
 
 public interface IBlockSolid
 {
-    
+    public Rigidbody GetRigidbody();
 
+    public BoxCollider GetSolidCollider();
 }
 
 public interface IBlockLiquid
 {
-
+    public void flow();
+    public void updateTexture(); 
 }
 
 
@@ -27,6 +29,9 @@ public abstract class Block
 
 public class DirtBlock : Block, IBlockSolid
 {
+
+    private Rigidbody body;
+    private BoxCollider collider;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,5 +55,15 @@ public class DirtBlock : Block, IBlockSolid
     public override bool onDestory(int x, int y, int z)
     {
         return true;
+    }
+
+    public Rigidbody GetRigidbody()
+    {
+        return body;
+    }
+
+    public BoxCollider GetSolidCollider()
+    {
+        return collider;
     }
 }
