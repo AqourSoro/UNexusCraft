@@ -18,6 +18,12 @@ public interface IBlockLiquid
     public void updateTexture(); 
 }
 
+public enum BlockType
+{
+    Dirt,
+    Stone,
+    Water
+}
 
 public abstract class Block
 {
@@ -30,6 +36,7 @@ public abstract class Block
 public class DirtBlock : Block, IBlockSolid
 {
 
+    
     private Rigidbody body;
     private BoxCollider collider;
     // Start is called before the first frame update
