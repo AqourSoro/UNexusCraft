@@ -12,6 +12,7 @@ public class UNexusCraft : Architecture<UNexusCraft>
         Debug.Log($"[{nameof(UNexusCraft)}] Architecture launch finished.");
 
         RegisterModel<IBlockModel>(new BlockModel());
+        RegisterModel<IChunkModel>(new ChunkModel());
         
         Debug.Log($"{nameof(UNexusCraft)} Architecture launch finished.");
 

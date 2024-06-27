@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using QFramework;
@@ -5,9 +6,14 @@ using UnityEngine;
 
 namespace NexusCraft
 {
-    public class BlockManager :IController
+    public class BlockManager :MonoBehaviour, IController
     {
-        private void TestChunkManager()
+        private void Start()
+        {
+            TestBlockManager();
+        }
+
+        public void TestBlockManager()
         {
             var blockModel = this.GetModel<IBlockModel>();
 
@@ -46,6 +52,8 @@ namespace NexusCraft
                 blockModel.RemoveBlock(new Vector3Int(2, 0, 0));
                 glassBlockInstance.OnDestroy();
             }
+            Debug.Log("Test Done!");
+            
         }
 
         public IArchitecture GetArchitecture()

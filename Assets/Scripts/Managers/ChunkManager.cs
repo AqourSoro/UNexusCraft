@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using QFramework;
@@ -5,74 +6,42 @@ using UnityEngine;
 
 namespace NexusCraft
 {
-    public class ChunkManager : IController
+    public class ChunkManager : MonoBehaviour, IController
     {
-        private Dictionary<Vector3Int, Chunk> chunks;
-        private int chunkSize = 16;
+        private IChunkModel chunkModel;
 
-        public ChunkManager()
+        void Start()
         {
-            chunks = new Dictionary<Vector3Int, Chunk>();
+            TestChunkManager();
         }
 
-        public Chunk GetOrCreateChunk(Vector3Int chunkPosition)
+        void TestChunkManager()
         {
-            if (!chunks.ContainsKey(chunkPosition))
+            chunkModel = this.GetModel<IChunkModel>();
+
+            // 示例：在位置(0, 0, 0)生成一个区块
+            var chunk = new Chunk(new Vector3Int(0, 0, 0));
+            chunkModel.AddChunk(chunk.Position, chunk);
+
+            // 示例：在区块内的本地位置(1, 0, 1)生成一个泥土方块
+            var block = BlockFactory.CreateBlock(BlockType.Dirt, new Vector3Int(1, 0, 1));
+            chunk.AddBlock(block.Position, block);
+
+            // 获取并移除方块的示例
+            var retrievedBlock = chunk.GetBlock(new Vector3Int(1, 0, 1));
+            if (retrievedBlock != null)
             {
-                chunks[chunkPosition] = new Chunk(chunkPosition);
+                chunk.RemoveBlock(new Vector3Int(1, 0, 1));
             }
-            return chunks[chunkPosition];
-        }
 
-        public void AddBlock(Vector3Int position, BaseBlock block)
-        {
-            var chunkPosition = GetChunkPosition(position);
-            var localPosition = GetLocalPosition(position);
-            var chunk = GetOrCreateChunk(chunkPosition);
-            chunk.AddBlock(localPosition, block);
-        }
-
-        public void RemoveBlock(Vector3Int position)
-        {
-            var chunkPosition = GetChunkPosition(position);
-            var localPosition = GetLocalPosition(position);
-            if (chunks.ContainsKey(chunkPosition))
+            // 获取并移除区块的示例
+            var retrievedChunk = chunkModel.GetChunk(new Vector3Int(0, 0, 0));
+            if (retrievedChunk != null)
             {
-                var chunk = chunks[chunkPosition];
-                chunk.RemoveBlock(localPosition);
+                chunkModel.RemoveChunk(new Vector3Int(0, 0, 0));
             }
-        }
-
-        public BaseBlock GetBlock(Vector3Int position)
-        {
-            var chunkPosition = GetChunkPosition(position);
-            var localPosition = GetLocalPosition(position);
-            if (chunks.ContainsKey(chunkPosition))
-            {
-                return chunks[chunkPosition].GetBlock(localPosition);
-            }
-            return null;
-        }
-
-        private Vector3Int GetChunkPosition(Vector3Int position)
-        {
-            return new Vector3Int(
-                Mathf.FloorToInt(position.x / chunkSize),
-                Mathf.FloorToInt(position.y / chunkSize),
-                Mathf.FloorToInt(position.z / chunkSize)
-            );
-        }
-
-        private Vector3Int GetLocalPosition(Vector3Int position)
-        {
-            return new Vector3Int(
-                position.x % chunkSize,
-                position.y % chunkSize,
-                position.z % chunkSize
-            );
         }
         
-
         public IArchitecture GetArchitecture()
         {
             return UNexusCraft.Interface;

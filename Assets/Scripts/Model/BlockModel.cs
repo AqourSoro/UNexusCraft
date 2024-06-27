@@ -5,30 +5,45 @@ using UnityEngine;
 
 namespace NexusCraft
 {
+    
+    public interface IBlockModel : IModel
+    {
+        void AddBlock(Vector3Int position, BaseBlock block);
+        void RemoveBlock(Vector3Int position);
+        BaseBlock GetBlock(Vector3Int position);
+    }
+    
     public class BlockModel : AbstractModel, IBlockModel
     {
-    
-
-        private ChunkManager chunkManager;
+        private Dictionary<Vector3Int, BaseBlock> blocks;
 
         protected override void OnInit()
         {
-            chunkManager = new ChunkManager();
+            blocks = new Dictionary<Vector3Int, BaseBlock>();
         }
 
         public void AddBlock(Vector3Int position, BaseBlock block)
         {
-            chunkManager.AddBlock(position, block);
+            if (!blocks.ContainsKey(position))
+            {
+                blocks[position] = block;
+                block.OnGenerate();
+            }
         }
 
         public void RemoveBlock(Vector3Int position)
         {
-            chunkManager.RemoveBlock(position);
+            if (blocks.ContainsKey(position))
+            {
+                blocks[position].OnDestroy();
+                blocks.Remove(position);
+            }
         }
 
         public BaseBlock GetBlock(Vector3Int position)
         {
-            return chunkManager.GetBlock(position);
+            blocks.TryGetValue(position, out var block);
+            return block;
         }
     }
 }
