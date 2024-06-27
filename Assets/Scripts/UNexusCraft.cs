@@ -1,3 +1,4 @@
+using NexusCraft;
 using UnityEngine;
 using QFramework;
 
@@ -10,6 +11,9 @@ public class UNexusCraft : Architecture<UNexusCraft>
 
         Debug.Log($"[{nameof(UNexusCraft)}] Architecture launch finished.");
 
+        RegisterModel<IBlockModel>(new BlockModel());
+        
+        Debug.Log($"{nameof(UNexusCraft)} Architecture launch finished.");
 
     }
 }
