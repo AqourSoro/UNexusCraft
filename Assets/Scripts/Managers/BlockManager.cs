@@ -6,59 +6,38 @@ using UnityEngine;
 
 namespace NexusCraft
 {
-    public class BlockManager :MonoBehaviour, IController
+    public class BlockManager
     {
-        private void Start()
+        private Dictionary<Vector3Int, BaseBlock> blocks;
+
+        public BlockManager()
         {
-            TestBlockManager();
+            blocks = new Dictionary<Vector3Int, BaseBlock>();
         }
 
-        public void TestBlockManager()
+        public void AddBlock(Vector3Int localPosition, BaseBlock block)
         {
-            var blockModel = this.GetModel<IBlockModel>();
-
-            // 示例：在位置(0, 0, 0)生成一个泥土方块
-            var block = BlockFactory.CreateBlock(BlockType.Dirt, new Vector3Int(0, 0, 0));
-            block.OnGenerate();
-
-            // 示例：在位置(1, 0, 0)生成一个水方块
-            var waterBlock = BlockFactory.CreateBlock(BlockType.Water, new Vector3Int(1, 0, 0));
-            waterBlock.OnGenerate();
-
-            // 示例：在位置(2, 0, 0)生成一个玻璃方块
-            var glassBlock = BlockFactory.CreateBlock(BlockType.Glass, new Vector3Int(2, 0, 0));
-            glassBlock.OnGenerate();
-
-            // 示例：销毁位置(0, 0, 0)的方块
-            var dirtBlock = blockModel.GetBlock(new Vector3Int(0, 0, 0));
-            if (dirtBlock != null)
+            if (!blocks.ContainsKey(localPosition))
             {
-                blockModel.RemoveBlock(new Vector3Int(0, 0, 0));
-                dirtBlock.OnDestroy();
+                blocks[localPosition] = block;
+                block.OnGenerate();
             }
-
-            // 示例：销毁位置(1, 0, 0)的方块
-            var waterBlockInstance = blockModel.GetBlock(new Vector3Int(1, 0, 0));
-            if (waterBlockInstance != null)
-            {
-                blockModel.RemoveBlock(new Vector3Int(1, 0, 0));
-                waterBlockInstance.OnDestroy();
-            }
-
-            // 示例：销毁位置(2, 0, 0)的方块
-            var glassBlockInstance = blockModel.GetBlock(new Vector3Int(2, 0, 0));
-            if (glassBlockInstance != null)
-            {
-                blockModel.RemoveBlock(new Vector3Int(2, 0, 0));
-                glassBlockInstance.OnDestroy();
-            }
-            Debug.Log("Test Done!");
-            
         }
 
-        public IArchitecture GetArchitecture()
+        public void RemoveBlock(Vector3Int localPosition)
         {
-            return UNexusCraft.Interface;
+            if (blocks.ContainsKey(localPosition))
+            {
+                var block = blocks[localPosition];
+                block.OnDestroy();
+                blocks.Remove(localPosition);
+            }
+        }
+
+        public BaseBlock GetBlock(Vector3Int localPosition)
+        {
+            blocks.TryGetValue(localPosition, out var block);
+            return block;
         }
     }
 }

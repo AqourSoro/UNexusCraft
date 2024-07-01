@@ -25,13 +25,13 @@ namespace NexusCraft
 
             // 示例：在区块内的本地位置(1, 0, 1)生成一个泥土方块
             var block = BlockFactory.CreateBlock(BlockType.Dirt, new Vector3Int(1, 0, 1));
-            chunk.AddBlock(block.Position, block);
+            chunk.BlockManager.AddBlock(new Vector3Int(1, 0, 1), block);
 
             // 获取并移除方块的示例
-            var retrievedBlock = chunk.GetBlock(new Vector3Int(1, 0, 1));
+            var retrievedBlock = chunk.BlockManager.GetBlock(new Vector3Int(1, 0, 1));
             if (retrievedBlock != null)
             {
-                chunk.RemoveBlock(new Vector3Int(1, 0, 1));
+                chunk.BlockManager.RemoveBlock(new Vector3Int(1, 0, 1));
             }
 
             // 获取并移除区块的示例
@@ -40,6 +40,9 @@ namespace NexusCraft
             {
                 chunkModel.RemoveChunk(new Vector3Int(0, 0, 0));
             }
+            
+            Debug.Log("Test Done!");
+            
         }
         
         public IArchitecture GetArchitecture()
