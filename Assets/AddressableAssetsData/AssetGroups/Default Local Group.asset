@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 45f179d5f9c5b064e801c43d5e932842
+  m_SerializeEntries:
+  - m_GUID: 78994c45becc7ae4fb008459683eaab7
+    m_Address: Assets/Textures/GrassBlock/grass_block_snow.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 500cd9c816d91fd40a3fbba625bb48cd
+    m_Address: Assets/Textures/GrassBlock/grass_block_side_overlay.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7402bcf45fa3505409c60aade8d3af2e
+    m_Address: Assets/Textures/GrassBlock/grass_block_top.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3eb255a936452d74c92167688d6bd257
+    m_Address: Assets/Textures/GrassBlock/grass_block_side.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 803bdbc703aee674bb0158108580babe, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4aa873130ac517c4da13615fd6162890, type: 2}
+    - {fileID: 11400000, guid: 062147e05cd8f9840860284b5ef7d291, type: 2}
