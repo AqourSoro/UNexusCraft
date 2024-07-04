@@ -8,9 +8,10 @@ namespace NexusCraft
     {
         public GlassBlock(Vector3Int position) : base(position, BlockType.Water) { }
 
-        public override void OnGenerate()
+        public override void OnGenerate(GameObject prefab)
         {
             // WaterBlock specific generation logic
+            base.OnGenerate(prefab);
             Debug.Log($"GlassBlock generated at {Position}");
         }
 

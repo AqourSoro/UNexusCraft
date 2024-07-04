@@ -16,10 +16,6 @@ namespace NexusCraft
                 _ => throw new ArgumentException("Unknown block type")
             };
 
-            // 获取模型实例并添加方块
-            var blockModel = UNexusCraft.Interface.GetModel<IBlockModel>();
-            blockModel.AddBlock(position, block);
-
             return block;
         }
     }

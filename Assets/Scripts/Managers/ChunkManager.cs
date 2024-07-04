@@ -10,9 +10,20 @@ namespace NexusCraft
     {
         private IChunkModel chunkModel;
 
+        private bool isTested;
+        
         void Start()
         {
-            TestChunkManager();
+            isTested = false;
+        }
+
+        private void Update()
+        {
+            if (!isTested && this.GetModel<IPrefabModel>().IsLoaded)
+            {
+                TestChunkManager();
+                isTested = true;
+            }
         }
 
         void TestChunkManager()

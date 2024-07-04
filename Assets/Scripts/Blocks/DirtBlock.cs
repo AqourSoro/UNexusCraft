@@ -11,9 +11,10 @@ namespace NexusCraft
             
         }
 
-        public override void OnGenerate()
+        public override void OnGenerate(GameObject prefab)
         {
             Debug.Log($"DirtBlock generated at {Position}");
+            base.OnGenerate(prefab);
         }
 
         public override void OnDestroy()

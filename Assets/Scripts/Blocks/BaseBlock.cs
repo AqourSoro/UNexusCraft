@@ -15,7 +15,17 @@ namespace NexusCraft
             Type = type;
         }
 
-        public abstract void OnGenerate();
+        public virtual void OnGenerate(GameObject prefab)
+        {
+            if (prefab != null)
+            {
+                GameObject.Instantiate(prefab, Position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("Prefab is null.");
+            }
+        }
 
         public abstract void OnDestroy();
 
@@ -23,6 +33,7 @@ namespace NexusCraft
 
     public enum BlockType
     {
+        TestCube,
         Dirt,
         Stone,
         Water,

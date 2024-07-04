@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace NexusCraft
 {
-    public class BlockManager
+    public class BlockManager: IController
     {
         private Dictionary<Vector3Int, BaseBlock> blocks;
 
@@ -20,7 +20,7 @@ namespace NexusCraft
             if (!blocks.ContainsKey(localPosition))
             {
                 blocks[localPosition] = block;
-                block.OnGenerate();
+                this.GetModel<IBlockModel>().AddBlock(localPosition, block);
             }
         }
 
@@ -38,6 +38,11 @@ namespace NexusCraft
         {
             blocks.TryGetValue(localPosition, out var block);
             return block;
+        }
+
+        public IArchitecture GetArchitecture()
+        {
+            return UNexusCraft.Interface;
         }
     }
 }

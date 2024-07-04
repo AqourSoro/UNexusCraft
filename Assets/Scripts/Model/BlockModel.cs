@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using QFramework;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace NexusCraft
@@ -13,13 +14,16 @@ namespace NexusCraft
         BaseBlock GetBlock(Vector3Int position);
     }
     
-    public class BlockModel : AbstractModel, IBlockModel
+    public class BlockModel : AbstractModel, IBlockModel, ICanGetModel
     {
         private Dictionary<Vector3Int, BaseBlock> blocks;
 
+        private IPrefabModel prefabModel;
+        
         protected override void OnInit()
         {
             blocks = new Dictionary<Vector3Int, BaseBlock>();
+            prefabModel = this.GetModel<IPrefabModel>();
         }
 
         public void AddBlock(Vector3Int position, BaseBlock block)
@@ -27,7 +31,17 @@ namespace NexusCraft
             if (!blocks.ContainsKey(position))
             {
                 blocks[position] = block;
-                block.OnGenerate();
+
+                if (prefabModel.IsLoaded)
+                {
+                    // var prefab = prefabModel.GetPrefab(block.Type.ToString());
+                    var prefab = prefabModel.GetPrefab("TestCube");
+                    block.OnGenerate(prefab);
+                }
+                else
+                {
+                    Debug.LogWarning("Prefabs are not loaded yet.");
+                }
             }
         }
 
