@@ -20,6 +20,7 @@ namespace NexusCraft
             if (prefab != null)
             {
                 GameObject.Instantiate(prefab, Position, Quaternion.identity);
+                InitializeComponents();
             }
             else
             {
@@ -27,6 +28,11 @@ namespace NexusCraft
             }
         }
 
+        public virtual void InitializeComponents()
+        {
+            Debug.Log("BaseBlock: Default component initialization.");
+        }
+        
         public abstract void OnDestroy();
 
     }

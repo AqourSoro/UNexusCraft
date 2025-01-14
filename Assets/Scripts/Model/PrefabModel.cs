@@ -7,7 +7,7 @@ namespace NexusCraft
 {
     public interface IPrefabModel : IModel
     {
-        void InitializePrefabs(IList<GameObject> prefabs);
+        //void InitializePrefabs(IList<GameObject> prefabs);
         GameObject GetPrefab(string key);
         bool IsLoaded { get; }
     }
@@ -19,24 +19,10 @@ namespace NexusCraft
 
         protected override void OnInit()
         {
-            var addressableSystem = this.GetSystem<IAddressableSystem>();
-            addressableSystem.LoadAllPrefabs(loadedPrefabs =>
-            {
-                Debug.Log($"Size of prefabs: {loadedPrefabs.Count}");
-                InitializePrefabs(loadedPrefabs);
-                Debug.Log("All prefabs loaded.");
-            });
+            //load prefabs here
         }
 
-        public void InitializePrefabs(IList<GameObject> loadedPrefabs)
-        {
-            foreach (var prefab in loadedPrefabs)
-            {
-                prefabs[prefab.name] = prefab;
-                Debug.Log("Loaded: " + prefab.name);
-            }
-            IsLoaded = true;
-        }
+        
 
         public GameObject GetPrefab(string key)
         {
